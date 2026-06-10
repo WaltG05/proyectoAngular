@@ -1,0 +1,103 @@
+<div class="bg-black/80 text-white py-24 max-7-xl mx-auto">
+  <h1 class="text-center font-bold text-3xl mt-4">Directivas Estructurales</h1>
+
+  <div class="text-center text-xl mt-10 mb-4">
+    @if (isLogged) {
+      <span
+        >Bienvenido, <span class="text-green-500">{{ nombre }}</span></span
+      >
+    } @else {
+      <h2 class="text-red-600">No logeado {{ nombre }}</h2>
+    }
+  </div>
+
+  <div class="flex items-center justify-center">
+    <div class="relative group">
+      <button
+        (click)="isLogged = !isLogged"
+        class="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
+      >
+        <span
+          class="absolute inset-0 rounded-xl bg-linear-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        ></span>
+
+        <span class="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
+          <div class="relative z-10 flex items-center space-x-2">
+            <span class="transition-all duration-500 group-hover:translate-x-1">Login</span>
+            <svg
+              lucideArrowRight
+              class="h-6 w-6 transition-all duration-500 group-hover:translate-x-1"
+            ></svg>
+          </div>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <pre
+    class="mt-4 text-xl text-center"
+  >Valor de isLogged: <span class="font-black" [ngClass]="{'text-green-500': isLogged, 'text-red-500': !isLogged}">{{isLogged}}</span></pre>
+
+  <div class="">
+    <ul>
+      @for (item of productos; track item.id) {
+        <li>{{ item.nombre }} {{ item.precio }}</li>
+      } @empty {
+        <li>No hay productos</li>
+      }
+    </ul>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of misProductos; track item.nombre) {
+          <tr>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.precio }}</td>
+            <td>{{ item.stock }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="max-w-7xl mx-auto mt-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      @for (producto of listaProductos; track producto.id) {
+        <div class="bg-gray-800 rounded-lg shadow-lg text-white relative">
+          <div
+            class="absolute bg-primary/60 text-primary-foreground rounded-full text-sm px-2 py-0.5 font-semibold"
+          >
+            -15%
+          </div>
+          <div class="w-full">
+            <img
+              src="{{ producto.img }}"
+              alt="{{ producto.title }}"
+              class="place-self-center mb-4 object-cover h-52 object-top w-full"
+            />
+          </div>
+          <div class="p-4">
+            <h2 class="text-xl font-bold">{{ producto.title }}</h2>
+            <p class="text-muted-foreground text-sm mt-2">{{ producto.descripcion }}</p>
+            <div class="flex justify-between items-center mt-4">
+              <p class="font-bold text-primary">{{ producto.precio }}</p>
+              <button
+                class="bg-primary/30 text-primary-foreground font-semibold px-3 py-2 text-sm rounded-lg inline-flex items-center gap-2 transition-all hover:bg-primary/40 active:scale-95"
+              >
+                <svg lucideShoppingCart class="h-4 w-4 text-primary"></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+    <a routerLink="/" class="flex items-center gap-2">
+      <!-- <img src="/logogc.png" alt="Logo" class="h-10 w-10" /> -->
+      <svg lucideGamepad2 class="h-8 w-8 text-primary" />
+      <span class="text-xl font-bold tracking-tight"></span>
+    </a>
+
+    <div class="hidden lg:flex lg:items-center lg:gap-6">
+      @for (nav of navigation; track nav.label) {
+        <a
+          routerLink="{{ nav.href }}"
+          class="text-sm font-medium transition-all duration-300 ease-in-out text-muted-foreground hover:scale-105 hover:text-primary"
+          routerLinkActive="!text-primary"
+          [routerLinkActiveOptions]="{exact: true}"
+        >
+          {{ nav.label }}
+        </a>
+      }
+    </div>
+    
+    <div class="flex items-center gap-4">
+      
+      @if (usuario === 'invitado') {
+        <p>Acceso limitado</p>
+      }
+      @else if (isLogged && usuario === 'admin') {
+        <a
+        routerLink="/"
+        class="flex items-center gap-2 rounded-lg bg-secondary px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary/80"
+        >
+        <svg lucideUser class="h-5 w-5" />
+          <span class="hidden sm:inline">Perfil</span>
+        </a>
+        <a
+          routerLink="/carrito"
+          class="relative flex items-center gap-2 rounded-lg bg-secondary px-3 py-2 text-sm font-medium transition-colors hover:bg-primary/50 duration-400 group"
+        >
+          <svg lucideShoppingCart class="h-5 w-5" />
+          <span class="hidden sm:inline">Carrito</span>
+          
+          @if(cartService.totalItems() > 0) {
+            <span class="absolute flex items-center bg-primary z-50 -top-1 right-0 rounded-full h-4 w-4 text-xs font-bold justify-center group-hover:-translate-y-1.5 transition-all duration-500 ease-in-out ">{{cartService.totalItems()}}</span>
+          }
+          
+        </a>
+        <button (click)="isLogged = !isLogged" class="border border-border rounded-lg text-foreground p-2 font-medium text-sm hover:bg-red-500/80 transition-colors duration-500 cursor-pointer">Cerrar Sesión</button>
+      } @else {
+        <button (click)="isLogged = !isLogged" class="border border-border rounded-lg text-foreground p-2 font-medium text-sm hover:bg-primary/80 transition-colors duration-500 cursor-pointer">Iniciar Sesión</button>
+      }
+      
+      <button
+        type="button"
+        class="lg:hidden rounded-lg p-2 text-muted-foreground hover:bg-secondary hover:text-foreground"
+        (click)="toggleMobileMenu()"
+      >
+        >
+        <span class="sr-only">Toggle menu</span>
+        @if (mobileMenuOpen) {
+          <svg lucideX class="h-6 w-6" />
+        } @else {
+          <svg lucideMenu class="h-6 w-6" />
+        }
+      </button>
+    </div>
+  </nav>
+
+  @if (mobileMenuOpen) {
+    <div class="border-t border-border lg:hidden">
+      <div class="space-y-1 px-4 py-4">
+        @for (nav of navigation; track nav.label) {
+          <a
+            routerLink="{{ nav.href }}"
+            class="block rounded-lg px-3 py-2 text-base font-medium transition-colors"
+            (click)="toggleMobileMenu()"
+            routerLinkActive="!text-primary"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ nav.label }}
+          </a>
+        }
+      </div>
+    </div>
+  }
+</header>

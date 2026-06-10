@@ -1,0 +1,14 @@
+<div class="max-w-7xl mx-auto px-4 pt-24 pb-8 py-8 lg:px-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-foreground tracking-tight">Catálogo</h1>
+    <p class="mt-2 text-muted-foreground">
+      Videojuegos digitales y gift cards para todas las plataformas
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    @for (item of listaProductos; track item.id) {
+      <app-cardproduct [productos]="item" (agregarAlCarrito)="onAgregarAlCarrito($event)"></app-cardproduct>
+    }
+  </div>
+</div>
