@@ -32,11 +32,23 @@ export class Products {
 
   cantidad = signal<number>(0);
   total = signal<number>(0);
+  carrito = signal<any[]>([]);
 
   agregarAlCarrito(item: any){
     console.log('Producto recibido en catálogo:', item);
     this.cantidad.update(i => i + item.cantidad);
     this.total.update(i => i + item.total);
+
+    this.carrito.update(items => {
+      const index = items.findIndex(prod => prod.id === item.id);
+      if (index !== -1) {
+        items[index].cantidad += item.cantidad;
+        items[index].total += item.total;
+        return [...items];
+      }
+      return [...items, { ...item }];
+    });
+
     console.log('Total: $' + this.total());
   }
 
@@ -45,7 +57,7 @@ export class Products {
       id: 1,
       title: 'Resident Evil Requiem',
       descripcion: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
-      precio: 35000,
+      precio: 75000,
       img: 'https://image.api.playstation.com/pr/bam-art/227/344/776803f4-0dc0-45bf-a4a3-9a71fff6d65e.jpg',
       subcategoria: {
         nombre: 'PS5',
@@ -56,13 +68,13 @@ export class Products {
       ],
       plataformas: 'PlayStation',
       descuento_porcentaje: 5,
-      stock: 0,
+      stock: 5,
     },
     {
       id: 2,
       title: 'EA FC 26',
       descripcion: 'EA FC 26',
-      precio: 50000,
+      precio: 35000,
       img: 'https://image.api.playstation.com/vulcan/ap/rnd/202507/2511/19ad6574090b6a71c88f0e6152ae5a668cc85882d87c51b5.png',
       subcategoria: {
         nombre: 'PS5',
@@ -71,8 +83,8 @@ export class Products {
         {nombre: 'Deportes'},
       ],
       plataformas: 'PS5',
-      descuento_porcentaje: 20,
-      stock: 10,
+      descuento_porcentaje: 25,
+      stock: 0,
     },
     {
       id: 3,
@@ -87,7 +99,7 @@ export class Products {
         {nombre: 'Deportes'},
       ],
       plataformas: 'Nintendo',
-      descuento_porcentaje: 10,
+      descuento_porcentaje: 15,
       // precio_final:0,
       stock: 5,
     },
