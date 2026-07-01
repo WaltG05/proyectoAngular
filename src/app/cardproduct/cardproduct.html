@@ -2,7 +2,6 @@
   routerLink="/products/${product.id}"
   class="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
 >
-  <!-- {/* Image */} -->
   <div class="relative aspect-4/3 overflow-hidden bg-secondary">
     <img
       src="{{ productos().img }}"
@@ -18,7 +17,6 @@
         Oferta
       </span>
     }
-    <!-- {/* Platform badge */} -->
     <span
       class="absolute right-3 top-3 rounded px-2 py-0.5 text-xs font-bold text-foreground"
       [style.backgroundColor]="coloresPlataforma[productos().subcategoria.nombre]"
@@ -27,7 +25,6 @@
     </span>
   </div>
 
-  <!-- {/* Content */} -->
   <div class="flex flex-1 flex-col p-4">
     <div class="flex items-center gap-2">
       <span
@@ -47,14 +44,12 @@
     >
       {{ productos().title }}
     </h3>
-    <!-- {/* Rating */} -->
     <div class="flex items-center gap-1 mt-2">
       <svg lucideStar class="h-3.5 w-3.5 fill-primary text-primary" />
       <span class="text-xs font-medium text-foreground">4.5</span>
       <span class="text-muted-foreground text-xs">(12400)</span>
     </div>
 
-    <!-- {/* Price & Action */} -->
     <div class="flex items-end justify-between pt-4">
       <div class="flex flex-col md:flex-row md:items-center md:gap-1.5">
         @if (productos().descuento_porcentaje > 0) {

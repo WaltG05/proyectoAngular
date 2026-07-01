@@ -23,10 +23,7 @@ export class Cardproduct {
   productos = input.required<Producto>();
   cantidad = signal(1);
   agregarCarrito = output<Carrito>();
-  // agregarAlCarrito = output<any>();
-  // onAgregarCarrito(): void {
-  //   this.agregarAlCarrito.emit(this.productos());
-  // }
+
   agregarAlCarrito(productos: Producto){
     this.agregarCarrito.emit({
       id: productos.id,
@@ -49,17 +46,6 @@ export class Cardproduct {
     return this.precioFinal() * this.cantidad();
   });
 
-  // precioOferta = computed(() => this.productos().precio - this.productos().precio * this.productos().descuento_porcentaje / 100);
-
-  // constructor() {
-  //   effect(() => {
-  //     console.log(`La cantidad del producto ${this.productos().title} cambió a ${this.cantidad()}`);
-  //     if(this.cantidad() > this.productos().stock){
-  //       alert('No hay stock suficiente');
-  //       this.cantidad.set(this.productos().stock);
-  //     }
-  //   })
-  // }
   constructor() {
     effect(() => {
       console.log(

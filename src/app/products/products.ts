@@ -111,14 +111,6 @@ export class Products {
     },
   ];
 
-  // onAgregarAlCarrito(idProducto: number) {
-  //   const producto = this.listaProductos.find(p => p.id === idProducto);
-
-  //   if(producto) {
-  //     this.cartService.addToCart(producto);
-  //     console.log('Producto agregado al carrito:', producto.title);
-  //   }
-  // }
   onAgregarAlCarrito(item: any): void {
     this.cartService.addToCart(item);
   }
