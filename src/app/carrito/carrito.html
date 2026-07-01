@@ -1,5 +1,5 @@
 @if (cartService.totalItems() === 0) {
-  <div class="py-24 px-4 mx-auto max-w-7xl lg:px-8">
+  <div class="py-18 px-8 mx-auto max-w-7xl lg:px-20">
     <div
       class="flex flex-col border border-border rounded-2xl justify-center items-center py-24 bg-card"
     >
@@ -8,13 +8,14 @@
       <p class="mt-2 text-muted-foreground">Aun no has agregado productos a tu carrito</p>
       <a
         routerLink="/products"
-        class="mt-6 rounded-xl p-2 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-6 py-3 font-semibold"
+        class="mt-6 rounded-xl p-2 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/80 active:scale-95 transition-all duration-400 px-6 py-3 font-semibold"
         >Ver catálogo</a
       >
     </div>
   </div>
 }
 
+@if(cartService.totalItems() > 0){
 <div class="py-8 px-4 lg:px-8 mx-auto max-w-7xl">
   <a
     routerLink="/products"
@@ -36,74 +37,67 @@
     <div class="lg:col-span-2">
       <div class="space-y-4">
         <!-- items -->
-         <!-- @for(item of cartService.cartItems(); track item.producto.id){ -->
+         @for(item of cartService.cartItems(); track item.producto.id){
         <div class="flex gap-4 rounded-xl border border-border bg-card p-4 sm:p-6">
           <a
             routerLink="/products/1"
             class="relative shrink-0 overflow-hidden bg-secondary h-24 w-24 sm:h-32 sm:w-32 rounded-lg"
           >
-            <!-- <img
+            <img
               src="{{item.producto.img}}"
               class="object-cover"
-            /> -->
-            <img src="https://image.api.playstation.com/vulcan/ap/rnd/202507/2511/19ad6574090b6a71c88f0e6152ae5a668cc85882d87c51b5.png" alt="">
+            />
           </a>
           <div class="flex flex-1 flex-col">
             <div class="flex items-start gap-4 justify-between">
               <div>
                 <div class="flex items-center gap-2">
-                  <!-- <span
+                  <span
                     class="text-[10px] px-1.5 py-0.5 rounded font-bold text-foreground bg-cyan-800"
                     >{{item.producto.subcategoria.nombre}}</span
-                  > -->
-                  <span class="px-1.5 py-0.5 rounded font-bold text-foreground bg-cyan-800"
-                    >FC 26</span
                   >
-                  <span class="px-1.5 py-0.5 rounded font-bold text-foreground bg-cyan-800">PS5</span>
-                  <!-- <span class="text-muted-foreground text-xs">{{item.producto.subcategoria.nombre}}</span> -->
+                  <span class="text-muted-foreground text-xs">{{item.producto.subcategoria.nombre}}</span>
                 </div>
                 <a
                   routerLink="/products/1"
                   class="mt-1 text-foreground hover:text-primary transition-colors font-semibold"
                 >
-                  EA Sports FC 26
+                  {{item.producto.title}}
                 </a>
               </div>
               <p class="text-lg text-foreground">
-                <!-- @if(item.producto.descuento_porcentaje > 0){ -->
-                  <!-- <span class="font-bold">
+                @if(item.producto.descuento_porcentaje > 0){
+                  <span class="font-bold">
                     ${{(item.producto.precio - (item.producto.precio * item.producto.descuento_porcentaje / 100)) * item.cantidad | number}}
-                  </span> -->
-                  <span>$35.000</span>
-                  <!-- <span class="line-through text-muted-foreground text-xs">
+                  </span>
+                  <span class="line-through text-muted-foreground text-xs">
                     ${{item.producto.precio * item.cantidad | number}}
-                  </span> -->
-                <!-- } @else { -->
-                  <!-- <span class="font-bold">
+                  </span>
+                } @else {
+                  <span class="font-bold">
                     ${{item.producto.precio * item.cantidad | number}}
-                  </span> -->
-                <!-- } -->
+                  </span>
+                }
               </p>
             </div>
             <div class="mt-auto flex justify-between pt-4 items-center">
               <div class="flex items-center gap-2">
-                <button class="cursor-pointer w-8 h-8 rounded-lg border border-border bg-secondary flex items-center justify-center text-foreground hover:bg-secondary/80 transition-colors">
-                  <svg lucideMinus class="h-4 w-4" />
-                </button>
-                <!-- <button
+                <button
                   (click)="cartService.minusQty(item)"
                   class="cursor-pointer w-8 h-8 rounded-lg border border-border bg-secondary flex items-center justify-center text-foreground hover:bg-secondary/80 transition-colors"
                 >
                   <svg lucideMinus class="h-4 w-4" />
-                </button> -->
-                <span class="w-8 text-center font-medium text-foreground text-sm">1</span>
+                </button>
+                <span class="w-8 text-center font-medium text-foreground text-sm">{{item.cantidad}}</span>
                 <button
+                  (click)="cartService.plusQty(item)"
                   class="cursor-pointer w-8 h-8 rounded-lg border border-border bg-secondary flex items-center justify-center text-foreground hover:bg-secondary/80 transition-colors"
                 >
                   <svg lucidePlus class="h-4 w-4" />
                 </button>
               </div>
               <button
+                (click)="cartService.removerItem(item)"
                 class="flex items-center gap-2 text-muted-foreground text-sm font-medium hover:text-red-500 cursor-pointer transition-colors"
               >
                 <svg lucideTrash2 class="w-4 h-4" />
@@ -112,17 +106,17 @@
             </div>
           </div>
         </div>
-      <!-- } -->
+      }
       </div>
       <!-- Vaciar carrito -->
-       <!-- @if(cartService.totalItems() > 0){ -->
+       @if(cartService.totalItems() > 0){
       <button
         (click)="cartService.vaciarCarrito()"
         class="text-sm text-muted-foreground mt-4 font-medium hover:text-red-500 transition-colors cursor-pointer"
       >
         Vaciar carrito
       </button>
-       <!-- } -->
+       }
        
     </div>
 
@@ -134,16 +128,16 @@
         <dl class="mt-6 space-y-4">
           <div class="flex justify-between">
             <dt class="text-sm text-muted-foreground">Subtotal</dt>
-            <dd class="text-sm font-medium text-foreground">$35.000</dd>
+            <dd class="text-sm font-medium text-foreground">${{cartService.subTotal() | number}}</dd>
           </div>
           <div class="flex justify-between">
             <dt class="text-sm text-muted-foreground">IVA</dt>
-            <dd class="text-sm font-medium text-foreground">$5.000</dd>
+            <dd class="text-sm font-medium text-foreground">${{cartService.subTotal() * 0.21 | number}}</dd>
           </div>
           <div class="border-t border-border pt-4">
             <div class="flex justify-between">
               <dt class="text-base text-foreground font-semibold">Total</dt>
-              <dd class="text-base font-bold text-foreground">$40.000</dd>
+              <dd class="text-base font-bold text-foreground">${{cartService.total() | number}}</dd>
             </div>
           </div>
         </dl>
@@ -167,3 +161,4 @@
     </div>
   </div>
 </div>
+}

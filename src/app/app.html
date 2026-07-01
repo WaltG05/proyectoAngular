@@ -1,4 +1,15 @@
-<div>
-  <app-navbar></app-navbar>
-  <router-outlet />
-</div>
+@if (isAdminRoute()) {
+  <div class="flex min-h-screen">
+    <app-navbaradmin></app-navbaradmin>
+    <main class="flex-1 bg-background text-foreground">
+      <router-outlet />
+    </main>
+  </div>
+} @else {
+  <div>
+    <app-navbar></app-navbar>
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+}

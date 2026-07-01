@@ -14,7 +14,6 @@ import { DecimalPipe } from '@angular/common';
   selector: 'app-carrito',
   imports: [
     RouterLink,
-    RouterLinkActive,
     LucideShoppingBag,
     LucideArrowLeft,
     LucideTrash2,

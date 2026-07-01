@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Cardproduct } from '../cardproduct/cardproduct';
 import { Cart } from '../services/cart';
+import { DecimalPipe } from '@angular/common';
 
-export interface listProducts {
+export interface Producto {
   id: number;
   title: string;
   descripcion: string;
@@ -23,14 +24,23 @@ export interface listProducts {
 
 @Component({
   selector: 'app-products',
-  imports: [Cardproduct],
+  imports: [Cardproduct, DecimalPipe],
   templateUrl: './products.html',
 })
 export class Products {
   cartService = inject(Cart);
 
+  cantidad = signal<number>(0);
+  total = signal<number>(0);
 
-  listaProductos: listProducts[] = [
+  agregarAlCarrito(item: any){
+    console.log('Producto recibido en catálogo:', item);
+    this.cantidad.update(i => i + item.cantidad);
+    this.total.update(i => i + item.total);
+    console.log('Total: $' + this.total());
+  }
+
+  listaProductos: Producto[] = [
     {
       id: 1,
       title: 'Resident Evil Requiem',
@@ -46,7 +56,7 @@ export class Products {
       ],
       plataformas: 'PlayStation',
       descuento_porcentaje: 5,
-      stock: 5,
+      stock: 0,
     },
     {
       id: 2,
@@ -101,12 +111,15 @@ export class Products {
     },
   ];
 
-  onAgregarAlCarrito(idProducto: number) {
-    const producto = this.listaProductos.find(p => p.id === idProducto);
+  // onAgregarAlCarrito(idProducto: number) {
+  //   const producto = this.listaProductos.find(p => p.id === idProducto);
 
-    if(producto) {
-      this.cartService.addToCart(producto);
-      console.log('Producto agregado al carrito:', producto.title);
-    }
+  //   if(producto) {
+  //     this.cartService.addToCart(producto);
+  //     console.log('Producto agregado al carrito:', producto.title);
+  //   }
+  // }
+  onAgregarAlCarrito(item: any): void {
+    this.cartService.addToCart(item);
   }
 }

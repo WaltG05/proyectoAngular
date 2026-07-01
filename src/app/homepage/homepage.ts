@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideArrowRight, LucideGift } from '@lucide/angular';
+// import { LucideArrowRight, LucideGift } from '@lucide/angular';
 
 @Component({
   selector: 'app-homepage',
-  imports: [RouterLink, LucideArrowRight, LucideGift],
+  imports: [],
   templateUrl: './homepage.html',
 })
 export class Homepage {}

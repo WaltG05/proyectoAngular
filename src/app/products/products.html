@@ -1,4 +1,17 @@
 <div class="max-w-7xl mx-auto px-4 pt-24 pb-8 py-8 lg:px-8">
+  <div class="flex items-center justify-between mb-6 px-4 rounded-xl bg-amber-50">
+    <h1 class="text-xl font-semibold text-gray-800">Carrito de Tienda</h1>
+    <div class="flex items-center gap-4">
+      <div class="text-sm text-gray-600">
+        <div class="text-xs text-gray-500">Cantidad</div>
+        <div id="cart-count" class="text-lg font-medium text-gray-900">{{ cantidad() }}</div>
+      </div>
+      <div class="text-sm text-gray-600">
+        <div class="text-xs text-gray-500">Total</div>
+        <div id="cart-total" class="text-lg font-medium text-gray-900">${{ total() | number }}</div>
+      </div>
+    </div>
+  </div>
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-foreground tracking-tight">Catálogo</h1>
     <p class="mt-2 text-muted-foreground">
@@ -6,9 +19,12 @@
     </p>
   </div>
 
+  
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     @for (item of listaProductos; track item.id) {
-      <app-cardproduct [productos]="item" (agregarAlCarrito)="onAgregarAlCarrito($event)"></app-cardproduct>
+      <app-cardproduct
+        [productos]="item" (agregarCarrito)="agregarAlCarrito($event)"
+      ></app-cardproduct>
     }
   </div>
 </div>

@@ -5,6 +5,7 @@ import { Directivas } from './directivas/directivas';
 import { Signal } from './signal/signal';
 import { Cardproduct } from './cardproduct/cardproduct';
 import { Carrito } from './carrito/carrito';
+import { Admindashboard } from './admindashboard/admindashboard';
 
 
 export const routes: Routes = [
@@ -35,5 +36,9 @@ export const routes: Routes = [
     {
         path: 'carrito',
         component: Carrito
+    },
+    {
+        path: 'admin/dashboard',
+        component: Admindashboard,
     }
 ];
